@@ -1,65 +1,82 @@
-import axios from 'axios';
-import setAuthToken from '../utils/setAuthToken';
-import jwt_decode from 'jwt-decode';
-
-import { GET_ERRORS, SET_CURRENT_USER } from './types';
-
-// **** THUNK ALLOWS US TO MAKE ASYNC DISPATCH CALL HERE
-// Register user
-export const registerUser = (userData, history) => dispatch => {
-	axios
-		.post('/api/users/register', userData)
-		.then(res => history.push('/login'))
-		.catch(err => 
-			dispatch({
-				type: GET_ERRORS,
-				payload: err.response.data 
-			})
-		);
-};
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
+import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { logoutUser } from '../../actions/authActions';
 
 
-// login -- get user token
-export const loginUser = userData => dispatch => {
-	axios.post('/api/users/login', userData)
-		.then(res => {
-			const { token } = res.data;
-			// save token to localStorage
-			localStorage.setItem('jwtToken', token);
-
-			// Set token to Auth header
-			setAuthToken(token);
-
-			// Decode token to get user data
-			const decoded = jwt_decode(token);
-
-			// Set current user
-			dispatch(setCurrentUser(decoded));
-		})
-		.catch(err => dispatch({
-			type: GET_ERRORS,
-			payload: err.response.data
-		}));
-};
-
-
-// Set logged in user
-export const setCurrentUser = (decoded) => {
-	return {
-		type: SET_CURRENT_USER,
-		payload: decoded
+class Navbar extends Component {
+	onLogoutClick(event){
+		event.preventDefault();
+		this.props.logoutUser();
 	}
+
+	render() {
+		const { isAuthenticated, user } = this.props.auth;
+
+		const authLinks = (
+	        <ul className="navbar-nav ml-auto">
+	          <li className="nav-item">
+	            <a 
+	            	href="" 
+	            	onClick={this.onLogoutClick.bind(this)} 
+	            	className="nav-link"
+	            >
+	            <img src={user.avatar} alt={user.name} style={{width: '25px', marginRight: '5px'}}
+	            	 title="You must have a gravatar connected to your email to display your avatar image"
+	            	 className="rounded-circle"
+	            />
+	            Logout
+	            </a>
+	          </li>
+	        </ul>
+		);
+
+		const guestLinks = (
+	        <ul className="navbar-nav ml-auto">
+	          <li className="nav-item">
+	            <Link className="nav-link" to="/register">Sign Up</Link>
+	          </li>
+	          <li className="nav-item">
+	            <Link className="nav-link" to="/login">Login</Link>
+	          </li>
+	        </ul>
+		);
+
+
+		return(
+			<nav className="navbar navbar-expand-sm navbar-dark bg-dark mb-4">
+			    <div className="container">
+			      <Link className="navbar-brand" to="/">Home</Link>
+			      <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#mobile-nav">
+			        <span className="navbar-toggler-icon"></span>
+			      </button>
+
+			      <div className="collapse navbar-collapse" id="mobile-nav">
+			        <ul className="navbar-nav mr-auto">
+			          <li className="nav-item">
+			            <Link className="nav-link" to="/profiles"> 
+			            	Profile
+			            </Link>
+			          </li>
+			        </ul>
+
+					{isAuthenticated ? authLinks : guestLinks}
+			      </div>
+			    </div>
+			 </nav>
+		)
+	}	
 }
 
 
-// log-out user
-export const logoutUser = () => dispatch => {
-	// remove token from localStorage
-	localStorage.removeItem('jwtToken');
+Navbar.propTypes = {
+	logoutUser: PropTypes.func.isRequired,
+	auth: PropTypes.object.isRequired
+};
 
-	// remove auth header for future requests
-	setAuthToken(false);
+const mapStateToProps = (state) => ({
+	auth: state.auth
+});
 
-	// set current user to {} which will set isAuthenticated to false
-	dispatch(setCurrentUser({}));
-} 
+export default connect(mapStateToProps, { logoutUser })(Navbar);
