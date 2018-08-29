@@ -15,15 +15,11 @@ const ProfileSchema = new Schema({
 	location: {
 		type: String
 	},
-	status: {
-		type: String,
-		required: true
-	},
 	bio: {
 		type: String,
 	},
-	recipes: [
-		recipe: {
+	bookmarks: [
+		{
 			image: {
 				type: String,
 				required: true
@@ -37,15 +33,15 @@ const ProfileSchema = new Schema({
 				required: true
 			},
 			yields: {
-				type: string,
+				type: String,
 				required: true
 			},
 			calories: {
-				type: string,
+				type: String,
 				required: true		
 			},
 			link: {
-				type: string,
+				type: String,
 				required: true		
 			}			
 		}

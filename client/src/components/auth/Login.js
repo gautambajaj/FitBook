@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 import classnames from 'classnames';
 import { loginUser } from '../../actions/authActions';
+import { connect } from 'react-redux';
 import TextFieldGroup from '../common/TextFieldGroup';
 
 
@@ -78,8 +79,8 @@ class Login extends Component {
 							error={errors.password}
 						/>		
 
-		            <input type="submit" className="btn btn-info btn-block mt-4" />
-
+		            	<input type="submit" className="btn btn-info btn-block mt-4" />
+				    </div>
 		          </form>
 		        </div>
 		      </div>

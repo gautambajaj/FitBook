@@ -8,33 +8,31 @@ const PostSchema = new Schema({
 		ref: 'users'
 	},
 	recipe: {
-		recipeData: {
-			image: {
-				type: String,
-				required: true
-			},
-			label: {
-				type: String,
-				required: true
-			},
-			tags: {
-				type: String,
-				required: true
-			},
-			yields: {
-				type: string,
-				required: true
-			},
-			calories: {
-				type: string,
-				required: true		
-			},
-			link: {
-				type: string,
-				required: true		
-			}
+		image: {
+			type: String,
+			required: true
+		},
+		label: {
+			type: String,
+			required: true
+		},
+		tags: {
+			type: String,
+			required: true
+		},
+		yields: {
+			type: string,
+			required: true
+		},
+		calories: {
+			type: string,
+			required: true		
+		},
+		link: {
+			type: string,
+			required: true		
 		}
-	}
+	},
 	name: {
 		type: String
 	}, 
