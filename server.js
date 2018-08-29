@@ -25,15 +25,15 @@ mongoose
 	.catch(err => console.log(err));
 
 
-// // passport middleware
-// app.use(passport.initialize());
+// passport middleware
+app.use(passport.initialize());
 
-// // passport config
-// require('./config/passport')(passport);
+// passport config
+require('./config/passport')(passport);
 
 
-// // use routes
-// app.use('/api/users', users);
+// use routes
+app.use('/api/users', users);
 // app.use('/api/profile', profile);
 // app.use('/api/posts', posts);
 
