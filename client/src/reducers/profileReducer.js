@@ -1,10 +1,11 @@
-import { GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from '../actions/types';
+import { GET_RECIPES ,GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from '../actions/types';
 
 
 const initialState = {
 	profile: null,
 	profiles: null,
-	loading: false
+	loading: false,
+	recipes: null
 }
 
 
@@ -25,6 +26,11 @@ export default function(state = initialState, action){
 			return {
 				...state,
 				profile: null
+			}
+		case GET_RECIPES:
+			return {
+				...state,
+				recipes: action.payload
 			}
 		default: 
 			return state;

@@ -19,6 +19,8 @@ import Register from './components/auth/Register';
 import Dashboard from './components/dashboard/Dashboard'
 import CreateProfile from './components/create-profile/CreateProfile'
 import EditProfile from './components/edit-profile/EditProfile'
+import RecipeSearch from './components/recipe-search/RecipeSearch'
+import Recipes from './components/recipe-search/Recipes'
 
 import './App.css';
 
@@ -68,6 +70,12 @@ class App extends Component {
             </Switch>
             <Switch>
               <PrivateRoute exact path="/edit-profile" component={ EditProfile } />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/recipe-search" component={ RecipeSearch } />
+            </Switch>
+            <Switch>
+              <PrivateRoute exact path="/recipe-search/results" component={ Recipes } />
             </Switch>
           </div>
           <Footer/>
