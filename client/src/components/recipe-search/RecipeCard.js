@@ -28,11 +28,11 @@ export default class RecipeCard extends Component{
                     Calories per Serving: {this.props.recipe.calories}
                 </CardText>
                 <div className="text-center">
-                  <div className="text-center"> &nbsp;
+                  <div className="text-center"> 
                     <i className="fas fa-external-link-alt fa-2x btn" onClick = {() => window.open(this.props.recipe.redirect, '_blank')}></i>
-                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; 
                     <i className="far fa-bookmark fa-2x btn"></i>
-                    &nbsp; &nbsp; &nbsp; &nbsp;
+                    &nbsp; &nbsp; 
                     <i className="fas fa-share-alt fa-2x btn"></i>
                   </div>
                 </div>

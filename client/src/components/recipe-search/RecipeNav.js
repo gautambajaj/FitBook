@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, ListGroup, ListGroupItem } from 'reactstrap';
 import RecipePagination from "./RecipePagination"
 
-export default class Example extends React.Component {
+export default class RecipeNav extends React.Component {
   render() {
 	let searchActions;
 	searchActions = (
