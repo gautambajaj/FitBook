@@ -59,13 +59,14 @@ class Recipes extends Component {
 	}
 
 	getBookmarks(bookmarks){
+		var result;
 		if(bookmarks){
-			bookmarks = bookmarks.map(bookmark => {
-				return [bookmark.label, bookmark._id];
+			result = bookmarks.map(bookmark => {
+				return [bookmark.calories, bookmark._id];
 			});
 		}
 
-		return bookmarks;	
+		return result;	
 	};
 
 	render() {

@@ -6,12 +6,12 @@ import { Card, CardImg, CardText, CardBody,
 export default class RecipeCard extends Component{
     render () {
       let bookmarkIcon;
-      var targetLabel = this.props.recipe.label;
+      var target = this.props.recipe.calories;
       var targetID = null;
       var bookmarks = this.props.bookmarks;
 
       for(var i = 0; i < bookmarks.length; ++i){
-        if(bookmarks[i][0] == targetLabel){
+        if(bookmarks[i][0] == target){
           targetID = bookmarks[i][1];
         }
       }
