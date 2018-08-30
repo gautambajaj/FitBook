@@ -3,7 +3,7 @@ import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button } from 'reactstrap';
   
 
-export default class RecipeCard extends Component{
+export default class BookmarkCard extends Component{
     render () {
       let bookmarkIcon;
       var targetLabel = this.props.recipe.label;
@@ -49,7 +49,7 @@ export default class RecipeCard extends Component{
                 </CardText>
                 <div className="text-center">
                   <div className="text-center"> 
-                    <i className="fas fa-external-link-alt fa-2x btn" onClick = {() => window.open(this.props.recipe.redirect, '_blank')}></i>
+                    <i className="fas fa-external-link-alt fa-2x btn" onClick = {() => window.open(this.props.recipe.link, '_blank')}></i>
                     &nbsp; &nbsp; 
                     {bookmarkIcon}
                     &nbsp; &nbsp; 

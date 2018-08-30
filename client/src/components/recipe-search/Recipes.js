@@ -56,13 +56,6 @@ class Recipes extends Component {
 
 	handleUnBookmark(id){
 		this.props.recipeUnBookmark(id);
-		setTimeout(() => { 
-			var bookmarks = this.getBookmarks();	
-
-			this.setState({
-				bookmarks: bookmarks
-			}); 
-		}, 1000);
 	}
 
 	getBookmarks(bookmarks){

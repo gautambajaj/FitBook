@@ -3,6 +3,7 @@ import { Link, withRouter } from 'react-router-dom';
 import TextFieldGroup from '../common/TextFieldGroup';
 import SelectListGroup from '../common/SelectListGroup';
 import { connect } from 'react-redux';
+import Spinner from '../common/Spinner';
 import PropTypes from 'prop-types';
 import { recipeSearch } from '../../actions/profileActions';
 import store from '../../store';
@@ -57,6 +58,7 @@ class RecipeSearch extends Component {
 
   render() {
     const { errors } = this.state;
+    const { loading } = this.props.profile;
 
     // Select options for nutritionLabels
     const nutritionOptions = [
@@ -98,59 +100,71 @@ class RecipeSearch extends Component {
       );
     }
 
-    return (
-      <div className="recipe-search">
-        <div className="container">
-          <div className="row">
-            <div className="col-md-8 m-auto">
-              <Link to="/dashboard" className="btn btn-light">
-                Go Back
-              </Link>
-              <h1 className="display-4 text-center">Search for Recipes</h1>
-              <hr/>
-              <small className="d-block pb-3">* = required fields</small>
-              <form onSubmit={this.onSubmit}>
-                <TextFieldGroup
-                  placeholder="* Enter query Keyword(s) e.g. chicken"
-                  name="query"
-                  value={this.state.query}
-                  onChange={this.onChange}
-                  error={errors.query}
-                  info="* Enter recipe Keyword(s)"
-                />
-                <SelectListGroup
-                  name="dietLabel"
-                  value={this.state.dietLabel}
-                  onChange={this.onChange}
-                  options={nutritionOptions}
-                  error={errors.dietLabel}
-                  info="Select a nutrition label"
-                />
-                <SelectListGroup
-                  name="calorieRange"
-                  value={this.state.calorieRange}
-                  onChange={this.onChange}
-                  options={caloriesOptions}
-                  error={errors.calorieRange}
-                  info="Calories per Serving"
-                />
-                {searchButton}
-              </form>
+    let content;
+
+    if(loading){
+      return (
+        <div>
+          <Spinner/>
+        </div>
+      );
+    } 
+    
+    return(
+        <div className="recipe-search">
+            <div className="container">
+              <div className="row">
+                <div className="col-md-8 m-auto">
+                  <Link to="/dashboard" className="btn btn-light">
+                    Go Back
+                  </Link>
+                  <h1 className="display-4 text-center">Search for Recipes</h1>
+                  <hr/>
+                  <small className="d-block pb-3">* = required fields</small>
+                  <form onSubmit={this.onSubmit}>
+                    <TextFieldGroup
+                      placeholder="* Enter query Keyword(s) e.g. chicken"
+                      name="query"
+                      value={this.state.query}
+                      onChange={this.onChange}
+                      error={errors.query}
+                      info="* Enter recipe Keyword(s)"
+                    />
+                    <SelectListGroup
+                      name="dietLabel"
+                      value={this.state.dietLabel}
+                      onChange={this.onChange}
+                      options={nutritionOptions}
+                      error={errors.dietLabel}
+                      info="Select a nutrition label"
+                    />
+                    <SelectListGroup
+                      name="calorieRange"
+                      value={this.state.calorieRange}
+                      onChange={this.onChange}
+                      options={caloriesOptions}
+                      error={errors.calorieRange}
+                      info="Calories per Serving"
+                    />
+                    {searchButton}
+                  </form>
+                </div>
+              </div>
             </div>
           </div>
-        </div>
-      </div>
     );
   }
 }
 
 RecipeSearch.propTypes = {
   recipeSearch: PropTypes.func.isRequired,
+  profile: PropTypes.object.isRequired,
   errors: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-  errors: state.errors
+  errors: state.errors,
+  profile: state.profile
 });
 
 export default connect(mapStateToProps, { recipeSearch })(

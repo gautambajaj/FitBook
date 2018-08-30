@@ -95,6 +95,8 @@ const getRecipes = (data, filters) => {
 export const recipeSearch = (filters, history) => dispatch => {
 	var URL = getURL(filters);
 	console.log(URL);
+	dispatch(setProfileLoading());
+	
 	axios
 		.get(URL)
 		.then(data => {
@@ -125,11 +127,10 @@ export const recipeBookmark = (recipe) => dispatch => {
 			})
 		})
 		.catch(err => {
-			console.log(err);
-			// dispatch({
-			// 	type: GET_ERRORS,
-			// 	payload: err
-			// })
+			dispatch({
+				type: GET_ERRORS,
+				payload: err
+			})
 		});
 };
 
@@ -147,11 +148,10 @@ export const recipeUnBookmark = (id) => dispatch => {
 			})
 		})
 		.catch(err => {
-			console.log(err);
-			// dispatch({
-			// 	type: GET_ERRORS,
-			// 	payload: err
-			// })
+			dispatch({
+				type: GET_ERRORS,
+				payload: err
+			})
 		});
 };
 

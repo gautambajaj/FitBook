@@ -31,7 +31,8 @@ export default function(state = initialState, action){
 		case GET_RECIPES:
 			return {
 				...state,
-				recipes: action.payload
+				recipes: action.payload,
+				loading: false
 			}
 		case GET_BOOKMARKS: 
 			return {
