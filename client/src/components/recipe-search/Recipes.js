@@ -12,7 +12,7 @@ class Recipes extends Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			pageNumber: '1'
+			pageNumber: 1
 		}
         this.handlePage = this.handlePage.bind(this);
         this.handleClick = this.handleClick.bind(this);
@@ -20,10 +20,6 @@ class Recipes extends Component {
 
 	getRecipes(){
 		return store.getState().profile.recipes[0];
-	}
-
-	getFilters(){
-		return store.getState().profile.recipes[2];
 	}
 
 	getResultCount(){
@@ -38,14 +34,11 @@ class Recipes extends Component {
 
     handleClick(event){
         event.preventDefault();
-        this.setState({
-            pageNumber: 0
-        });     
+        this.props.history.push('/recipe-search');    
     }
 
 	render() {
 		var recipes = this.getRecipes();
-		var filters = this.getFilters();
 		var resultCount = this.getResultCount();
 
 		var fromIndex = ((this.state.pageNumber-1)*12);
@@ -71,7 +64,11 @@ class Recipes extends Component {
                     <Col md="9">
 	                    <Container fluid>
 	                        <Row>
-	                            {recipeCards}
+	                            {resultCount == 0 ? (
+	                                <Alert color="danger">
+                        				No results found. Please try again.
+                    				</Alert>  
+	                            ) : recipeCards}
 	                        </Row>
 	                    </Container>
 	                </Col>

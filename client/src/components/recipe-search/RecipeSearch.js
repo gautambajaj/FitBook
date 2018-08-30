@@ -5,14 +5,27 @@ import SelectListGroup from '../common/SelectListGroup';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { recipeSearch } from '../../actions/profileActions';
+import store from '../../store';
+
 
 class RecipeSearch extends Component {
   constructor(props) {
     super(props);
+    var query = '';
+    var dietLabel = 'No Preference';
+    var calorieRange = 'No Preference';
+    
+    if(store.getState().profile.recipes){
+      var filters = store.getState().profile.recipes[2];
+      query = filters.query;
+      dietLabel = filters.dietLabel;
+      calorieRange = filters.calorieRange;
+    }
+
     this.state = {
-      query: '',
-      dietLabel: 'No Preference',
-      calorieRange: 'No Preference',
+      query: query,
+      dietLabel: dietLabel,
+      calorieRange: calorieRange,
       errors: {},
     };
 
