@@ -22,6 +22,16 @@ class Dashboard extends Component {
 
 		let dashboardContent;
 
+		const getBookmarks  = (bookmarks) => {
+			if(bookmarks){
+				bookmarks = bookmarks.bookmarks.map(bookmark => {
+					return [bookmark.label, bookmark._id];
+				});
+			}
+
+			return bookmarks;	
+		};
+
 		if(profile == null || loading){
 			dashboardContent = <Spinner/>;
 		} else {

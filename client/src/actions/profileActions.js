@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-import { GET_RECIPES ,GET_PROFILE, GET_ERRORS, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, SET_CURRENT_USER } from './types';
+import { GET_BOOKMARKS ,GET_RECIPES ,GET_PROFILE, GET_ERRORS, PROFILE_LOADING, CLEAR_CURRENT_PROFILE, SET_CURRENT_USER } from './types';
 
 // get current profile
 export const getCurrentProfile = () => dispatch => {
@@ -110,6 +110,48 @@ export const recipeSearch = (filters, history) => dispatch => {
 				type: GET_ERRORS,
 				payload: err
 			})
+		});
+};
+
+
+// Bookmark a recipe 
+export const recipeBookmark = (recipe) => dispatch => {
+	axios
+		.post('/api/profile/bookmark', recipe)
+		.then(res => {
+			dispatch({
+				type: GET_BOOKMARKS,
+				payload: res.data
+			})
+		})
+		.catch(err => {
+			console.log(err);
+			// dispatch({
+			// 	type: GET_ERRORS,
+			// 	payload: err
+			// })
+		});
+};
+
+
+// UnBookmark a recipe 
+export const recipeUnBookmark = (id) => dispatch => {
+	console.log(id);
+	var URL = '/api/profile/bookmark/' + id;
+	axios
+		.delete(URL)
+		.then(res => {
+			dispatch({
+				type: GET_BOOKMARKS,
+				payload: res.data
+			})
+		})
+		.catch(err => {
+			console.log(err);
+			// dispatch({
+			// 	type: GET_ERRORS,
+			// 	payload: err
+			// })
 		});
 };
 

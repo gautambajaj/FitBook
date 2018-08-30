@@ -8,7 +8,6 @@ export default class RecipePagination extends React.Component {
 
   render() {
     var currPage = this.props.pageNumber;
-    console.log(currPage);
     let getPaginationItem = (itemNumber) => {
       if(itemNumber == currPage){
         return (

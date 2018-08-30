@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button } from 'reactstrap';
-
+  
 
 export default class RecipeCard extends Component{
     constructor(props) {
@@ -9,6 +9,30 @@ export default class RecipeCard extends Component{
     }
 
     render () {
+      let bookmarkIcon;
+      var targetLabel = this.props.recipe.label;
+      var targetID = null;
+      var bookmarks = this.props.bookmarks;
+
+      for(var i = 0; i < bookmarks.length; ++i){
+        if(bookmarks[i][0] == targetLabel){
+          targetID = bookmarks[i][1];
+        }
+      }
+
+      if(targetID){
+        bookmarkIcon = (
+          <i 
+            className="fas fa-bookmark fa-2x btn bkIcon" 
+            onClick={(event) => {this.props.handleUnBookmark(targetID)}}>
+          </i>
+        );
+      } else {
+        bookmarkIcon = (
+          <i className="far fa-bookmark fa-2x btn bkIcon" onClick={(event) => {this.props.handleBookmark(this.props.recipe)}}></i>
+        );
+      }
+
         return (
           <div>
             <Card>
@@ -31,7 +55,7 @@ export default class RecipeCard extends Component{
                   <div className="text-center"> 
                     <i className="fas fa-external-link-alt fa-2x btn" onClick = {() => window.open(this.props.recipe.redirect, '_blank')}></i>
                     &nbsp; &nbsp; 
-                    <i className="far fa-bookmark fa-2x btn"></i>
+                    {bookmarkIcon}
                     &nbsp; &nbsp; 
                     <i className="fas fa-share-alt fa-2x btn"></i>
                   </div>
