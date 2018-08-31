@@ -40,9 +40,18 @@ router.post('/', passport.authenticate('jwt', { session: false }), (req,res) => 
 	if(!isValid){
 		return res.status(400).json(errors);
 	}
+	const postRecipe = {
+		image: req.body.image,
+		label: req.body.label,
+		tags: req.body.tags,
+		yields: req.body.yields,
+		calories: req.body.calories,
+		link: req.body.link
+	};
 
 	const newPost = new Post({
 		text: req.body.text,
+		recipe: postRecipe,
 		name: req.body.name,
 		avatar: req.body.avatar,
 		user: req.user.id

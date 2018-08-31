@@ -34,7 +34,13 @@ class PostForm extends Component{
 		const newPost = {
 			text: this.state.text,
 			name: user.name,
-			avatar: user.avatar
+			avatar: user.avatar,
+			image: this.props.post.shareData.image,
+			label: this.props.post.shareData.label,
+			tags: this.props.post.shareData.tags,
+			yields: this.props.post.shareData.yields,
+			calories: this.props.post.shareData.calories,
+			link: this.props.post.shareData.link
 		};
 
 		this.props.addPost(newPost);
