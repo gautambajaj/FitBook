@@ -1,4 +1,4 @@
-import { GET_BOOKMARKS, GET_RECIPES ,GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from '../actions/types';
+import { GET_BOOKMARKS, UNBOOKMARK, GET_RECIPES ,GET_PROFILE, PROFILE_LOADING, CLEAR_CURRENT_PROFILE } from '../actions/types';
 
 
 const initialState = {
@@ -35,9 +35,20 @@ export default function(state = initialState, action){
 				loading: false
 			}
 		case GET_BOOKMARKS: 
+			var newProfile = state.profile;
+			newProfile.bookmarks.push(action.payload);
+			console.log(newProfile);
 			return {
 				...state,
-				profile: action.payload
+				profile: newProfile
+			}
+		case UNBOOKMARK:
+			var newProfile = state.profile;
+			newProfile.bookmarks = newProfile.bookmarks.filter((bookmark) => {return bookmark.calories !== action.payload;});
+			console.log(newProfile.bookmarks);
+			return{
+				...state,
+				profile: newProfile
 			}
 		default: 
 			return state;

@@ -1,19 +1,31 @@
 import React, { Component } from 'react';
 import { Card, CardImg, CardText, CardBody,
   CardTitle, CardSubtitle, Button } from 'reactstrap';
-  
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
-export default class BookmarkCard extends Component{
+
+class BookmarkCard extends Component{
+    getBookmarks(bookmarks){
+      var result;
+      if(bookmarks){
+        result = bookmarks.map(bookmark => {
+          return bookmark.calories;
+        });
+      }
+
+      return result;  
+    };
+
     render () {
-      console.log(this.props.recipe);
       let bookmarkIcon;
-      var targetLabel = this.props.recipe.label;
+      var target = this.props.recipe.calories;
       var targetID = null;
-      var bookmarks = this.props.bookmarks;
+      var bookmarks = this.getBookmarks(this.props.profile.profile.bookmarks);
 
       for(var i = 0; i < bookmarks.length; ++i){
-        if(bookmarks[i][0] == targetLabel){
-          targetID = bookmarks[i][1];
+        if(bookmarks[i] == target){
+          targetID = target;
         }
       }
 
@@ -67,3 +79,14 @@ export default class BookmarkCard extends Component{
         )
     }
 };
+
+
+BookmarkCard.propTypes = {
+  profile: PropTypes.object.isRequired
+};
+
+const mapStateToProps = state => ({
+  profile: state.profile
+});
+
+export default connect(mapStateToProps)(BookmarkCard);
