@@ -30,18 +30,27 @@ class PostForm extends Component{
 		event.preventDefault();
 
 		const { user } = this.props.auth;
-
-		const newPost = {
-			text: this.state.text,
-			name: user.name,
-			avatar: user.avatar,
-			image: this.props.post.shareData.image,
-			label: this.props.post.shareData.label,
-			tags: this.props.post.shareData.tags,
-			yields: this.props.post.shareData.yields,
-			calories: this.props.post.shareData.calories,
-			link: this.props.post.shareData.link
-		};
+		
+		var newPost;
+		if(this.props.post.shareData){
+			newPost = {
+				text: this.state.text,
+				name: user.name,
+				avatar: user.avatar,
+				image: this.props.post.shareData.image,
+				label: this.props.post.shareData.label,
+				tags: this.props.post.shareData.tags,
+				yields: this.props.post.shareData.yields,
+				calories: this.props.post.shareData.calories,
+				link: this.props.post.shareData.link
+			};
+		} else {
+			newPost = {
+				text: this.state.text,
+				name: user.name,
+				avatar: user.avatar
+			};
+		}
 
 		this.props.addPost(newPost);
 		this.setState({text: ''});

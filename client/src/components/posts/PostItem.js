@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { Link } from 'react-router-dom';
 import { deletePost, addLike, removeLike } from '../../actions/postActions'
+import Bookmarks from '../dashboard/Bookmarks';
 
 
 class PostItem extends Component{
@@ -31,6 +32,16 @@ class PostItem extends Component{
 	render(){
 		const { post, auth, showActions } = this.props;
 
+		let recipe = '';
+		
+		if(post.recipe && this.props.profile.profile){
+			recipe = (
+				<Bookmarks shareData={post.recipe} bookmarks={this.props.profile.profile.bookmarks} share={true} />
+			)
+		} else{
+			recipe = '';
+		}
+
 		return(
             <div className="card card-body mb-3">
               <div className="row">
@@ -43,30 +54,59 @@ class PostItem extends Component{
                   <br />
                   <p className="text-center">{post.name}</p>
                 </div>
-                <div className="col-md-10">
-                  <p className="lead">{post.text}</p>
-                  <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
-                    <i className={classnames('fas fa-thumbs-up', {
-						'text-info': this.findUserLike(post.likes)
-                    })} />
-                    <span className="badge badge-light">{post.likes.length}</span>
-                  </button>
-                  <button onClick={this.onUnlikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
-                    <i className="text-secondary fas fa-thumbs-down"></i>
-                  </button>
-                  {showActions ? (<span>
-	                  <Link to={`/posts/${post._id}`} className="btn btn-info mr-1">
-	                    Comments
-	                  </Link>
-	                  {post.user === auth.user.id ? (
-					  	<button type="button" onClick={this.onDeleteClick.bind(this, post._id)} 
-					  	className="btn btn-danger mr-1">
-					  		<i className="i fas fa-times"/>
-					  	</button>
-	                  ) : null}		                  	
-                  </span>) : null}
+                {recipe === '' ? (
+	                <div className="col-md-10">
+	                  <p className="lead">{post.text}</p>
+	                  <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
+	                    <i className={classnames('fas fa-thumbs-up', {
+							'text-info': this.findUserLike(post.likes)
+	                    })} />
+	                    <span className="badge badge-light">{post.likes.length}</span>
+	                  </button>
+	                  <button onClick={this.onUnlikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
+	                    <i className="text-secondary fas fa-thumbs-down"></i>
+	                  </button>
+	                  {showActions ? (<span>
+		                  <Link to={`/posts/${post._id}`} className="btn btn-info mr-1">
+		                    Comments
+		                  </Link>
+		                  {post.user === auth.user.id ? (
+						  	<button type="button" onClick={this.onDeleteClick.bind(this, post._id)} 
+						  	className="btn btn-danger mr-1">
+						  		<i className="i fas fa-times"/>
+						  	</button>
+		                  ) : null}		                  	
+	                  </span>) : null}
+	                </div>
+                ) : (
+	            <div className="col-md-10 row">
+	                <div className="col-md-5">
+	                  <p className="lead">{post.text}</p>
+	                  <button onClick={this.onLikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
+	                    <i className={classnames('fas fa-thumbs-up', {
+							'text-info': this.findUserLike(post.likes)
+	                    })} />
+	                    <span className="badge badge-light">{post.likes.length}</span>
+	                  </button>
+	                  <button onClick={this.onUnlikeClick.bind(this, post._id)} type="button" className="btn btn-light mr-1">
+	                    <i className="text-secondary fas fa-thumbs-down"></i>
+	                  </button>
+	                  {showActions ? (<span>
+		                  <Link to={`/posts/${post._id}`} className="btn btn-info mr-1">
+		                    Comments
+		                  </Link>
+		                  {post.user === auth.user.id ? (
+						  	<button type="button" onClick={this.onDeleteClick.bind(this, post._id)} 
+						  	className="btn btn-danger mr-1">
+						  		<i className="i fas fa-times"/>
+						  	</button>
+		                  ) : null}		                  	
+	                  </span>) : null}
+	            	</div>
+	            	<div className="col-md-5">{recipe}</div>
+	            </div>
+                )}
 
-                </div>
               </div>
             </div>
 
@@ -84,11 +124,13 @@ PostItem.propTypes = {
 	addLike: PropTypes.func.isRequired,
 	removeLike: PropTypes.func.isRequired,
 	post: PropTypes.object.isRequired,
+	profile: PropTypes.object.isRequired,
 	auth: PropTypes.object.isRequired
 };
 
 const mapStateToProps = state => ({
-	auth: state.auth
+	auth: state.auth,
+	profile: state.profile
 });
 
 export default connect(mapStateToProps, { deletePost, addLike, removeLike })(PostItem);
