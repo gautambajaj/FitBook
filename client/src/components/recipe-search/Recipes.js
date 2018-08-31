@@ -61,6 +61,7 @@ class Recipes extends Component {
 	}
 
 	handleShare(recipe){
+		recipe.link = recipe.redirect;
 		this.props.sharePost(recipe);
 		this.props.history.push('/feed');
 	}
