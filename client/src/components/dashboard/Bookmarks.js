@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import BookmarkCard from './BookmarkCard'
 import { recipeBookmark, recipeUnBookmark } from '../../actions/profileActions';
+import { sharePost } from '../../actions/postActions';
 import { Alert, Container, Row, Col, Button } from 'reactstrap';
 
 
@@ -12,6 +14,13 @@ class Bookmarks extends Component {
 
     this.handleBookmark = this.handleBookmark.bind(this);
     this.handleUnBookmark = this.handleUnBookmark.bind(this);
+    this.handleShare = this.handleShare.bind(this);
+  }
+
+  handleShare(recipe){
+    recipe.fromHome = true;
+    this.props.sharePost(recipe);
+    this.props.history.push('/feed');
   }
 
   handleBookmark(recipe){
@@ -23,6 +32,11 @@ class Bookmarks extends Component {
       calories: recipe.calories,
       link: recipe.redirect
     }
+
+    if(this.props.share){
+      newBookmark.link = recipe.link;
+    }
+
     this.props.recipeBookmark(newBookmark);
   }
 
@@ -46,7 +60,7 @@ class Bookmarks extends Component {
     let bookmarkCards = this.props.bookmarks.map(recipe => {
       return (
           <Col key={recipe._id} lg="4">
-            <BookmarkCard key={recipe._id} recipe={recipe} 
+            <BookmarkCard key={recipe._id} recipe={recipe} handleShare={this.handleShare}
                     bookmarks={bookmarks} handleBookmark={this.handleBookmark}
                     handleUnBookmark={this.handleUnBookmark} />
           </Col>
@@ -54,23 +68,31 @@ class Bookmarks extends Component {
     });
     return (
       <div>
-        <hr/>
-        <h4 className="mb-4"><b>Bookmarked Recipes</b></h4>
-          <Container fluid>
-              <Row>
-                  <Col md="12">
-                    <Container fluid>
-                        <Row>
-                            {bookmarks.length === 0 ? (
-                                <Alert color="danger">
-                                  You do not have any bookmarked recipes
-                                </Alert>  
-                            ) : bookmarkCards}
-                        </Row>
-                    </Container>
-                </Col>
-              </Row>
-          </Container>
+        {this.props.share ? (
+          <BookmarkCard recipe={this.props.shareData} handleShare={this.handleShare}
+                    bookmarks={bookmarks} handleBookmark={this.handleBookmark}
+                    handleUnBookmark={this.handleUnBookmark} share={true} />
+        ) :(
+        <div>
+          <hr/>
+          <h4 className="mb-4"><b>Bookmarked Recipes</b></h4>
+            <Container fluid>
+                <Row>
+                    <Col md="12">
+                      <Container fluid>
+                          <Row>
+                              {bookmarks.length === 0 ? (
+                                  <Alert color="danger">
+                                    You do not have any bookmarked recipes
+                                  </Alert>  
+                              ) : bookmarkCards}
+                          </Row>
+                      </Container>
+                  </Col>
+                </Row>
+            </Container>
+        </div>
+        )}
       </div>
     );
   }
@@ -79,6 +101,7 @@ class Bookmarks extends Component {
 Bookmarks.propTypes = {
   recipeUnBookmark: PropTypes.func.isRequired,
   recipeBookmark: PropTypes.func.isRequired,
+  sharePost: PropTypes.func.isRequired
 };
 
-export default connect(null, { recipeUnBookmark, recipeBookmark })(Bookmarks);
+export default connect(null, { recipeUnBookmark, recipeBookmark, sharePost })(withRouter(Bookmarks));

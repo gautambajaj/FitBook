@@ -6,6 +6,7 @@ import store from '../../store';
 import RecipeCard from './RecipeCard'
 import RecipeNav from './RecipeNav'
 import { recipeBookmark, recipeUnBookmark } from '../../actions/profileActions';
+import { sharePost } from '../../actions/postActions';
 import { Alert, Container, Row, Col, Button } from 'reactstrap';
 
 
@@ -21,6 +22,7 @@ class Recipes extends Component {
         this.handleClick = this.handleClick.bind(this);
         this.handleBookmark = this.handleBookmark.bind(this);
         this.handleUnBookmark = this.handleUnBookmark.bind(this);
+        this.handleShare = this.handleShare.bind(this);
 	}
 
 	getRecipes(){
@@ -58,6 +60,11 @@ class Recipes extends Component {
 		this.props.recipeUnBookmark(id);
 	}
 
+	handleShare(recipe){
+		this.props.sharePost(recipe);
+		this.props.history.push('/feed');
+	}
+
 	getBookmarks(bookmarks){
 		var result;
 		if(bookmarks){
@@ -82,7 +89,7 @@ class Recipes extends Component {
 		recipeCards = recipes.map(recipe => {
 			    return (
 			        <Col key={recipe.id} lg="4">
-			          <RecipeCard key={recipe.id} recipe={recipe} 
+			          <RecipeCard key={recipe.id} recipe={recipe} handleShare={this.handleShare}
 			          			  bookmarks={bookmarks} handleBookmark={this.handleBookmark}
 			          			  handleUnBookmark={this.handleUnBookmark} />
 			        </Col>
@@ -116,6 +123,7 @@ class Recipes extends Component {
 Recipes.propTypes = {
   recipeBookmark: PropTypes.func.isRequired,
   recipeUnBookmark: PropTypes.func.isRequired,
+  sharePost: PropTypes.func.isRequired,
   errors: PropTypes.object.isRequired,
   profile: PropTypes.object.isRequired
 };
@@ -125,4 +133,4 @@ const mapStateToProps = state => ({
   profile: state.profile
 });
 
-export default connect(mapStateToProps, { recipeBookmark, recipeUnBookmark })(Recipes);
+export default connect(mapStateToProps, { recipeBookmark, recipeUnBookmark, sharePost })(Recipes);

@@ -9,7 +9,6 @@ const Profile = require('../../models/Profile');
 const User = require('../../models/Users');
 // load validation
 const validateProfileInput = require('../../validation/profile');
-const validateBookmarkInput = require('../../validation/bookmark');
 
 // @route GET api/profile
 // @desc Get current user's profile
@@ -151,14 +150,6 @@ router.post('/', passport.authenticate('jwt', {session: false}), (req,res) => {
 // @desc Add bookmark to profile
 // @access Private
 router.post('/bookmark', passport.authenticate('jwt', { session: false}), (req,res) => {
-	// Get fields
-	const { errors, isValid } = validateBookmarkInput(req.body);
-
-	// check validation
-	if(!isValid){
-		return res.status(400).json(errors);
-	}
-
 	Profile.findOne({ user: req.user.id })
 		.then(profile => {
 			const newBookmark = {

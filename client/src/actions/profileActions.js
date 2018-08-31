@@ -137,7 +137,6 @@ export const recipeBookmark = (recipe) => dispatch => {
 
 // UnBookmark a recipe 
 export const recipeUnBookmark = (id) => dispatch => {
-	console.log(id);
 	var URL = '/api/profile/bookmark/' + id;
 	axios
 		.delete(URL)

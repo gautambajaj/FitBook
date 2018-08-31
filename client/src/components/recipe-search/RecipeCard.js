@@ -53,7 +53,7 @@ export default class RecipeCard extends Component{
                     &nbsp; &nbsp; 
                     {bookmarkIcon}
                     &nbsp; &nbsp; 
-                    <i className="fas fa-share-alt fa-2x btn"></i>
+                    <i className="fas fa-share-alt fa-2x btn" onClick={(event) => this.props.handleShare(this.props.recipe)}  ></i>
                   </div>
                 </div>
               </CardBody>

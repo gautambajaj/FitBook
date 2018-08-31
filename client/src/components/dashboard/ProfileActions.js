@@ -11,6 +11,10 @@ const ProfileActions = () => {
               <i className="fas fa-utensils text-info mr-1"></i>
               Browse Recipes
             </Link>
+            <Link to="/feed" className="btn btn-light">
+              <i className="fa fa-rss text-info mr-1"></i>
+              View Post-Feed
+            </Link>
           </div>
 	)
 };

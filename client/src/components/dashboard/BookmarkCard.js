@@ -5,6 +5,7 @@ import { Card, CardImg, CardText, CardBody,
 
 export default class BookmarkCard extends Component{
     render () {
+      console.log(this.props.recipe);
       let bookmarkIcon;
       var targetLabel = this.props.recipe.label;
       var targetID = null;
@@ -53,7 +54,10 @@ export default class BookmarkCard extends Component{
                     &nbsp; &nbsp; 
                     {bookmarkIcon}
                     &nbsp; &nbsp; 
-                    <i className="fas fa-share-alt fa-2x btn"></i>
+                    {this.props.share ? ('')
+                    : (
+                    <i className="fas fa-share-alt fa-2x btn " onClick={(event) => this.props.handleShare(this.props.recipe)}></i>
+                    )}
                   </div>
                 </div>
               </CardBody>

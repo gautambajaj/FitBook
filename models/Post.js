@@ -7,30 +7,28 @@ const PostSchema = new Schema({
 		type: Schema.Types.ObjectId, 
 		ref: 'users'
 	},
+	text: {
+		type: String,
+		required: true
+	},
 	recipe: {
 		image: {
-			type: String,
-			required: true
+			type: String
 		},
 		label: {
-			type: String,
-			required: true
+			type: String
 		},
 		tags: {
-			type: String,
-			required: true
+			type: String
 		},
 		yields: {
-			type: string,
-			required: true
+			type: String
 		},
 		calories: {
-			type: string,
-			required: true		
+			type: String
 		},
 		link: {
-			type: string,
-			required: true		
+			type: String
 		}
 	},
 	name: {
