@@ -14,11 +14,12 @@
 ## Screenshots
 User dashboard with bookmarked recipes:
 <br/>
+<br/>  
 <img src="client/public/screenshots/laptop.PNG" height="500" >
-
+<br/>
 Responsive design for mobile devices:
 <br/>
-<p float="center">
+<p float="left">
   <img src="client/public/screenshots/phone_dashboard.jpg" width="300" >
   <img src="client/public/screenshots/phone_feed.jpg" width="300" >
 </p>
