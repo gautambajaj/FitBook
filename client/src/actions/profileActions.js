@@ -124,9 +124,7 @@ export const recipeBookmark = (recipe) => dispatch => {
 	});
 	axios
 		.post('/api/profile/bookmark', recipe)
-		.then(res => {
-
-		})
+		.then(res => {})
 		.catch(err => {
 			dispatch({
 				type: GET_ERRORS,

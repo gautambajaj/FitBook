@@ -36,15 +36,18 @@ export default function(state = initialState, action){
 			}
 		case GET_BOOKMARKS: 
 			var newProfile = state.profile;
-			newProfile.bookmarks.push(action.payload);
-			console.log(newProfile);
+			var newBookmark = action.payload;
+			newProfile.bookmarks.unshift(newBookmark);
 			return {
 				...state,
 				profile: newProfile
 			}
 		case UNBOOKMARK:
 			var newProfile = state.profile;
-			newProfile.bookmarks = newProfile.bookmarks.filter((bookmark) => {return bookmark.calories !== action.payload;});
+			console.log(newProfile.bookmarks);
+			newProfile.bookmarks = newProfile.bookmarks.filter((bookmark) => {
+				return String(bookmark.calories) !== String(action.payload);
+			});
 			console.log(newProfile.bookmarks);
 			return{
 				...state,
