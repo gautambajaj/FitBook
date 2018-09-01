@@ -13,10 +13,12 @@
 
 ## Screenshots
 User dashboard with bookmarked recipes:
-<img src="client/public/screenshots/laptop.png" >
+<br/>
+<img src="client/public/screenshots/laptop.PNG" height="500" >
 
 Responsive design for mobile devices:
-<img src="client/public/screenshots/phone.png" >
-
-Newsfeed with shared posts, likes and comments:
-<img src="client/public/screenshots/feed.png" >
+<br/>
+<p float="center">
+  <img src="client/public/screenshots/phone_dashboard.jpg" width="300" >
+  <img src="client/public/screenshots/phone_feed.jpg" width="300" >
+</p>
