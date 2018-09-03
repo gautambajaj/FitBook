@@ -12,11 +12,15 @@
 - Tested using Jest and Enzyme
 
 ## Screenshots
-User dashboard with bookmarked recipes:
-<img src="client/public/screenshots/laptop.png" >
+**User dashboard with bookmarked recipes:**
+<br/>  
+<img src="client/public/screenshots/laptop.PNG" height="500" >
+<br/>
+<br/>
 
-Responsive design for mobile devices:
-<img src="client/public/screenshots/phone.png" >
-
-Newsfeed with shared posts, likes and comments:
-<img src="client/public/screenshots/feed.png" >
+**Responsive design for mobile devices:**
+<br/>
+<p float="left">
+  <img src="client/public/screenshots/phone_dashboard.jpg" width="300" >
+  <img src="client/public/screenshots/phone_feed.jpg" width="300" >
+</p>
