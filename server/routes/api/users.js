@@ -14,7 +14,7 @@ const validateLoginInput = require('../../validation/login');
 const User = require('../../models/Users');
 
 
-// @route GET api/users/register
+// @route POST api/users/register
 // @desc Register User
 // @access Public
 router.post('/register', (req,res) => {
@@ -54,7 +54,7 @@ router.post('/register', (req,res) => {
 		});
 });
 
-// @route GET api/users/login
+// @route POST api/users/login
 // @desc Login User / returning token 
 // @access Public
 router.post('/login', (req, res) => {
